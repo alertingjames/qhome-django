@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../lib/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Satisfy' rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/qhome/style.css"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link rel="shortcut icon" href="/static/qhome/images/appicon.jpg" type="image/*">
+
+        <style>
+            #text {
+                max-width:800px;
+                margin:20px;
+                font-size:18px;
+                white-space: pre-line;
+            }
+            #text2 {
+                max-width:800px;
+                margin:20px;
+                font-size:18px;
+                white-space: pre-line;
+                float:right;
+                text-align:right;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        {% if lang == 'en' %}
+            <div id="text">{{text}}</div>
+            <script>
+                const response = document.getElementById('text').innerHTML
+                const decoded = response
+                  .replace(/\\u(....)/g, (match, p1) => String.fromCharCode(parseInt(p1, 16)))
+                  .replace(/\\(\d{3})/g, (match, p1) => String.fromCharCode(parseInt(p1,  8)))
+                document.getElementById('text').innerHTML = decoded;
+                document.title = decoded;
+            </script>
+        {% else %}
+            <div id="text2">{{text}}</div>
+            <script>
+                const response = document.getElementById('text2').innerHTML
+                const decoded = response
+                  .replace(/\\u(....)/g, (match, p1) => String.fromCharCode(parseInt(p1, 16)))
+                  .replace(/\\(\d{3})/g, (match, p1) => String.fromCharCode(parseInt(p1,  8)))
+                document.getElementById('text2').innerHTML = decoded;
+                document.title = decoded;
+            </script>
+        {% endif %}
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

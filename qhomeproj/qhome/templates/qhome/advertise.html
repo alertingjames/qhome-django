@@ -1,0 +1,1157 @@
+{% extends 'qhome/base_home.html' %}
+{% block title %}Advertise{% endblock %}
+{% block body %}
+
+<br>
+<br>
+<br>
+<br>
+
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+<style>
+
+html, body{
+  background:linear-gradient(0deg,rgba(20,150,250,0.1),rgba(0,100,250,0.2)), url("/static/qhome/images/accountbg.jpg") no-repeat center center fixed;
+  background-size:cover;
+}
+
+.table-business {
+  border: 1px solid #327a81;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+  width: 100%;
+  background-color: white;
+  overflow-x:auto;
+}
+
+.table-business1 {
+  border: 1px solid #ffffff;
+  width: 100%;
+  background-color: white;
+  overflow-x:auto;
+  position: relative;
+  display:none;
+}
+
+.table>tbody>tr>td{
+    vertical-align: middle;
+    horizontal-align: middle;
+}
+
+table td, table th {
+  color: #2b686e;
+  padding: 10px;
+  border: 1px solid white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+table td:last-child {
+  font-size: 0.95em;
+  line-height: 1.4;
+  text-align: center;
+}
+
+table th {
+  background-color: #04a2be;
+  font-weight: 520;
+  color:white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table tr:nth-child(2n) {
+  background-color: white;
+  border: 1px solid #327a81;
+}
+
+table tr:nth-child(2n+1) {
+  background-color: #edf7f8;
+  border: 1px solid white;
+}
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  z-index: 990;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+#myBtn:hover {
+  background-color: orange;
+}
+
+#admin{display:none}
+
+.centered-and-cropped { object-fit:cover }
+
+.busiaddress{
+    color:black;
+}
+
+.busiaddress:hover{
+    color:red;
+}
+
+.owner_name{color:black;}
+
+.hint{
+    color:red;
+    font-size:12px;
+    display:none;
+}
+
+.hyperlink:hover .hint {
+    display:block;
+}
+
+.hyperlink{
+    color:black;
+    font-size:25px;
+}
+
+.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+.desc{
+    font-size:14px;
+    width:100%;
+    text-align:left;
+    height:2.5em;
+    line-height: 1.5;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    color:black;
+}
+
+.desc:hover{
+    color:blue;
+}
+
+
+.header {
+  background-color: #0495af;
+  color: white;
+  font-size: 1.5em;
+  padding: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: 1px solid white;
+}
+
+#edit {
+  border-radius: 5px;
+  width:100%;
+  height:auto;
+  margin-top:1%;
+  margin-bottom: auto;
+  margin-left:auto;
+  margin-right:auto;
+  <!--background:linear-gradient(30deg,rgba(200,150,250,0.7),rgba(50,200,250,0.7));-->
+  opacity:0.9;
+  overflow: hidden;
+  <!--box-shadow: 25px 25px 0 rgba(0, 0, 0, 0.2);-->
+}
+
+p span {
+  color: #F00;
+}
+
+p {
+  margin: 0px;
+  font-weight: 600;
+  line-height: 2;
+  color:#008CBA;
+}
+
+input {
+  border-radius: 0px 50px 50px 0px;
+  border: 1px solid #eee;
+  margin-bottom: 15px;
+  margin-right:auto;
+  width: 92%;
+  height: 42px;
+  float: middle;
+  padding: 0px 15px;
+  opacity: 0.8;
+  color:black;
+  text-align:left;
+}
+
+select {
+  border-radius: 0px 50px 50px 0px;
+  border: 1px solid #eee;
+  margin-bottom: 15px;
+  width: 92%;
+  height: 42px;
+  float: middle;
+  padding: 0px 15px;
+  opacity: 0.8;
+  color:black;
+}
+
+a {
+  text-decoration:inherit
+}
+
+.form-group {
+  overflow: hidden;
+  width:100%;
+}
+
+i {
+  color:yellow;
+}
+
+.contentform {
+  padding: 30px 8px 0px 8px;
+  float:middle;
+  margin:auto;
+}
+
+.bouton-update{
+  color: white;
+  background:#0066cc;
+  text-align: center;
+  width: 80%;
+  margin-bottom:10%;
+  border:0px;
+  padding: 18px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight:600;
+  position:fixed; left:50%;
+  float:middle;
+  border-radius: 50px;
+  transform:translate(-50%, -50%);
+}
+
+.formcontent {
+  width:100%;
+  float:middle;
+  margin:auto;
+  <!--border-right: 1px dotted #CCC;-->
+  box-sizing: border-box;
+  padding: 0px 0px 0px 0px;
+}
+
+.pan {
+  max-width:500px;
+  width:auto;
+  height:auto;
+  margin-bottom: auto;
+  margin-left:auto;
+  margin-right:0;
+  opacity:0.9;
+  overflow: hidden;
+}
+
+.pan2 {
+  max-width:500px;
+  width:auto;
+  height:auto;
+  margin-bottom: auto;
+  margin-left:auto;
+  margin-right:auto;
+  opacity:0.9;
+  overflow: hidden;
+}
+
+.pan3 {
+  max-width:500px;
+  width:auto;
+  height:auto;
+  margin-bottom: auto;
+  margin-left:0;
+  margin-right:auto;
+  opacity:0.9;
+  overflow: hidden;
+}
+
+label.cameraBtn {
+  display: inline-block;
+  /* Styles to make it look like a button */
+  font-size:26px;
+  color:green;
+  width:auto;
+  height:auto;
+  text-align:center;
+}
+
+label.cameraButton {
+  display: inline-block;
+  padding: 0.6em;
+  border: 2px solid #666;
+  border-color: #EEE #CCC #CCC #EEE;
+  border-radius:6px;
+  font-size:16px;
+  color:white;
+  width:160px;
+  height:45px;
+  text-align:middle;
+  background-color: green;
+}
+
+/* Look like a clicked/depressed button */
+label.cameraButton:active {
+  border-color: #CCC #EEE #EEE #CCC;
+}
+
+/* This is the part that actually hides the 'Choose file' text box for camera inputs */
+label.cameraButton input[accept*="image"] {
+  display: none;
+}
+
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  right: 10px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+#myBtn:hover {
+  background-color: blue;
+}
+
+#admin{
+    display:none;
+}
+
+.pic{
+    width:auto; height:300px; margin-top:10px; margin-bottom:20px; border-radius:0;
+}
+
+
+#storeListBox {
+    position: absolute;
+    transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+}
+
+
+.slide-in {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.slide-out {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-in {
+    100% { transform: translateY(0%); }
+}
+
+@-webkit-keyframes slide-in {
+    100% { -webkit-transform: translateY(0%); }
+}
+
+@keyframes slide-out {
+    0% { transform: translateY(0%); }
+    100% { transform: translateY(100%); }
+}
+
+@-webkit-keyframes slide-out {
+    0% { -webkit-transform: translateY(0%); }
+    100% { -webkit-transform: translateY(100%); }
+}
+
+
+#backgroundOverlay{
+    background-color:rgba(0,0,0,0.3);
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    display:none;
+}
+
+
+</style>
+
+
+<script>
+	history.pushState(null, null, location.href);
+	window.onpopstate = function () {
+        history.go(1);
+    };
+</script>
+
+<script type="text/javascript">
+window.onload = function() {
+	window.moveTo(0, 0);
+	window.resizeTo(screen.availWidth, screen.availHeight);
+}
+</script>
+
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../lib/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="https://cdn.rawgit.com/asvd/dragscroll/master/dragscroll.js"></script>
+
+
+<img src="/static/qhome/images/progressbar.gif" class="glyphicon glyphicon-fire" aria-hidden="true" style="position:fixed; left:50%; float:middle; border-radius: 1px;
+	transform:translate(-50%, -50%); width:auto; z-index:100; top:120px; display: none;" id="gif">
+
+<img src="/static/qhome/images/icon.png" style="position:fixed; width:60px; height:60px; z-index:100; left:2%; display:block;">
+
+<!--{% if ad.picture1 or ad.picture2 or ad.picture3 %}-->
+<!--<a href="/resetAds" onclick="return confirm('Are you sure you want to reset all ads?')">-->
+<!--    <img src="/static/qhome/images/reset.png" style="position:fixed; width:50px; height:50px; border-radius:50%; z-index:100; float:right; right:2%; display:block;">-->
+<!--</a>-->
+<!--{% else %}-->
+<!--<img src="/static/qhome/images/reset.png" style="position:fixed; width:50px; height:50px; border-radius:50%; z-index:100; float:right; right:2%; display:block;">-->
+<!--{% endif %}-->
+
+<form id="edit" action="#" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1 style="font-size:30px; font-weight:800; margin:auto;
+            color: #F7D479; text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.7); text-align:center;"><img src="/static/qhome/images/ad.gif" style="width:auto; height:100px;"> FOR QHOME</h1>
+    <div class="container-fluid" style="margin-top:30px;">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="pan">
+                    <div class="contentform">
+    		            <div class="formcontent">
+                            <label class="" for="output" style="margin-left:3px; color:#fff;">Advertise1: </label>
+                            {% if ad.picture1 %}
+                                <a href="/cancelad?ad=1" onclick="return confirm('Are you sure you want to cancel this ad?')"><img src="/static/qhome/images/cancelicon.png" style="width:30px; height:30px; float:right;"></a>
+                            {% else %}
+                                <img src="/static/qhome/images/cancelicon.png" style="width:30px; height:30px; float:right; opacity:0;">
+                            {% endif %}
+                            <div class="form-group" style="margin-bottom:20px; margin-top:5px; display:inline-block; position:relative; width:100%;">
+    				            <center>
+                				    <a href="{% if ad.picture1 %}{{ad.picture1}}{% else %}/static/qhome/images/icon.png{% endif %}" target="_blank">
+                				        <img src="{% if ad.picture1 %}{{ad.picture1}}{% else %}/static/qhome/images/step.jpg{% endif %}" class="pic" id="picture1">
+                				    </a>
+                				</center>
+                				<label id="cameraBtn1" class="cameraBtn" style="padding:8px; position:absolute; bottom:-10px; right:30px; display:block;" onclick="javascript:showPictureBox('ad1');">
+                                    <img src="/static/qhome/images/cameraico.png" style="width:50px; height:50px;">
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <center>
+                                    <label class="cameraButton" style="min-width:160px; width:auto; height:auto;" onclick="javascript:openStoresBox('ad1');">
+                                        <div id="storeBox1" style="width:auto; color:white; font-size:16px; float:left;">{% if ad.stname1 %}{{ad.stname1}}{% else %}Select A Store{% endif %}</div>
+                                        <i class="glyphicon glyphicon-menu-down" style="color:white; font-weight:600; font-size:18px; margin-left:10px; float:right;"></i>
+                                    </label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pan2" style="padding-bottom:30px;">
+                    <div class="contentform">
+                        <div class="formcontent">
+                            <label class="" for="output" style="margin-left:3px; color:#fff;">Advertise2: </label>
+                            {% if ad.picture2 %}
+                                <a href="/cancelad?ad=2" onclick="return confirm('Are you sure you want to cancel this ad?')"><img src="/static/qhome/images/cancelicon.png" style="width:30px; height:30px; float:right;"></a>
+                            {% else %}
+                                <img src="/static/qhome/images/cancelicon.png" style="width:30px; height:30px; float:right; opacity:0;">
+                            {% endif %}
+                            <div class="form-group" style="margin-bottom:20px; margin-top:5px; display:inline-block; position:relative; width:100%;">
+                                <center>
+                				    <a href="{% if ad.picture2 %}{{ad.picture2}}{% else %}/static/qhome/images/icon.png{% endif %}" target="_blank">
+                				        <img src="{% if ad.picture2 %}{{ad.picture2}}{% else %}/static/qhome/images/step.jpg{% endif %}" class="pic" id="picture2">
+                				    </a>
+                				</center>
+                				<label id="cameraBtn2" class="cameraBtn" style="padding:8px; position:absolute; bottom:-10px; right:30px; display:block;" onclick="javascript:showPictureBox('ad2');">
+                                    <img src="/static/qhome/images/cameraico.png" style="width:50px; height:50px;">
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <center>
+                                    <label class="cameraButton" style="min-width:160px; width:auto; height:auto;" onclick="javascript:openStoresBox('ad2');">
+                                        <div id="storeBox2" style="width:auto; color:white; font-size:16px; float:left;">{% if ad.stname2 %}{{ad.stname2}}{% else %}Select A Store{% endif %}</div>
+                                        <i class="glyphicon glyphicon-menu-down" style="color:white; font-weight:600; font-size:18px; margin-left:10px; float:right;"></i>
+                                    </label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="pan3" style="padding-bottom:30px;">
+                    <div class="contentform">
+                        <div class="formcontent">
+                            <label class="" for="output" style="margin-left:3px; color:#fff;">Advertise3: </label>
+                            {% if ad.picture3 %}
+                                <a href="/cancelad?ad=3" onclick="return confirm('Are you sure you want to cancel this ad?')"><img src="/static/qhome/images/cancelicon.png" style="width:30px; height:30px; float:right;"></a>
+                            {% else %}
+                                <img src="/static/qhome/images/cancelicon.png" style="width:30px; height:30px; float:right; opacity:0;">
+                            {% endif %}
+                            <div class="form-group" style="margin-bottom:20px; margin-top:5px; display:inline-block; position:relative; width:100%;">
+                                 <center>
+                				    <a href="{% if ad.picture3 %}{{ad.picture3}}{% else %}/static/qhome/images/icon.png{% endif %}" target="_blank">
+                				        <img src="{% if ad.picture3 %}{{ad.picture3}}{% else %}/static/qhome/images/step.jpg{% endif %}" class="pic" id="picture3">
+                				    </a>
+                				</center>
+                				<label id="cameraBtn3" class="cameraBtn" style="padding:8px; position:absolute; bottom:-10px; right:30px; display:block;" onclick="javascript:showPictureBox('ad3');">
+                                    <img src="/static/qhome/images/cameraico.png" style="width:50px; height:50px;">
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <center>
+                                    <label class="cameraButton" style="min-width:160px; width:auto; height:auto;" onclick="javascript:openStoresBox('ad3');">
+                                        <div id="storeBox3" style="width:auto; color:white; font-size:16px; float:left;">{% if ad.stname3 %}{{ad.stname3}}{% else %}Select A Store{% endif %}</div>
+                                        <i class="glyphicon glyphicon-menu-down" style="color:white; font-weight:600; font-size:18px; margin-left:10px; float:right;"></i>
+                                    </label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-top:5%;">
+        <button type="submit" formaction="javascript:submitadvertisement();" class="bouton-update">SUBMIT</button>
+    </div>
+</form>
+
+
+<div class="table-business" id="storeListBox" style="position:fixed; float:bottom; z-index:200; bottom:0; display:block; width:100%; height:83%; display:none; background:white;">
+
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+    <div class="table-business1" id="header" style="z-index:900; position:relative; right:15px;" align="top">
+        <table cellspacing="0" class="table table-fit">
+            <tr>
+                <th style="width:4%;">id</th>
+                <th style="width:8%;">Logo</th>
+                <th style="width:9%;">Store Name</th>
+                <th style="width:10%;">Category</th>
+                <th style="width:35%;">Description</th>
+                <th style="width:8%;">Since</th>
+                <th style="width:5%;">Ratings</th>
+                <th style="width:5%;">Likes</th>
+                <th style="width:10%;">Owner</th>
+                <th style="width:10%;">Select</th>
+            </tr>
+        </table>
+    </div>
+
+
+
+    <div class="header" id="header2">
+        QHOME STORES
+        <img src="/static/qhome/images/cancelicon.png" style="width:25px; height:25px; float:right;" onclick="javascript:closeStoresBox();">
+        <div style="font-size:12px;">Select a store for advertisement</div>
+    </div>
+    <form action="#" method="post" id="list" style=" height:90%; overflow:auto;" onscroll="scrollFunction()">
+        {% csrf_token %}
+        <table cellspacing="0" class="table table-fit">
+        <tr>
+            <th style="width:4%;">id</th>
+            <th style="width:8%;">Logo</th>
+            <th style="width:9%;">Store Name</th>
+            <th style="width:10%;">Category</th>
+            <th style="width:35%;">Description</th>
+            <th style="width:8%;">Since</th>
+            <th style="width:5%;">Ratings</th>
+            <th style="width:5%;">Likes</th>
+            <th style="width:10%;">Owner</th>
+            <th style="width:10%;">Select</th>
+        </tr>
+        {% if stores %}
+            {% for store in stores %}
+                <tr class="test" id="{{store.id}}">
+                    <td><div>{{forloop.counter}}</div></td>
+                    <td>
+                        <a href="{{store.logo_url}}" target="_blank">
+                            <img class="centered-and-cropped" src="{{store.logo_url}}" alt="" style="width:120px; height:120px; border-radius:5%;"/>
+                        </a>
+                    </td>
+                    <td>{{store.name}}<br>{{store.ar_name}}</td>
+                    <td><div style="text-align:left;">1.{{store.category}} ({{store.ar_category}}) {% if store.category2 %}<br> 2.{{store.category2}} ({{store.ar_category2}}){% endif %}</div></td>
+                    <td>
+                        <a href="/info?lang=en&text={{store.description}}" target="_blank"><div class="desc">{{store.description}}</div></a>
+                        <a href="/info?lang=ar&text={{store.ar_description}}" target="_blank"><div class="desc">{{store.ar_description}}</div></a>
+                    </td>
+                    <td><div id="date" style="color:black; font-size:14px;">{{store.registered_time}}</div></td>
+                    <td>
+                        <a href="/reviews?store_id={{store.id}}">
+                            <div class="hyperlink">
+                                {% if store.ratings != '0' %}{{store.ratings}}{% else %}0.0{% endif %}
+                                <div style="font-size:12px;">{{store.reviews}} reviews</div>
+                                <div class="hint">Click to view ratings</div>
+                            </div>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/likes?store_id={{store.id}}">
+                            <div class="hyperlink">
+                                {{store.likes}}
+                                <div class="hint">Click to view likes</div>
+                            </div>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/products?store_id={{store.id}}">
+                            <div class="hyperlink">
+                                <img class="centered-and-cropped" src="/static/qhome/images/2428675.png" style="width:80px; height:80px;">
+                                <div class="owner_name">{{store.member_name}}</div>
+                                <div class="hint">Click to view products</div>
+                            </div>
+                        </a>
+                    </td>
+                    <td>
+                        <div>
+                            <a href="javascript:void(0);" role="button" onclick="confirmStore(this)" id="{{store.id}}">
+                                <img src="/static/qhome/images/approveicon.png" style="width:40px; height:40px;">
+                                <input type="hidden" value="{{store.name}} ({{store.ar_name}})">
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+
+
+            {% endfor %}
+        {%else %}
+
+        {% endif %}
+        </table>
+    </form>
+</div>
+
+
+<div id="pictureBox" style="font-size:16px; font-weight:300; color: black; box-shadow: 0px 0px 100px rgba(0, 0, 0, 1.0);
+	position:fixed; left:50%; float:middle; background-color:white; border-radius:10px; padding: 8px 15px 15px 15px;
+	transform:translate(-50%, -50%); width:600px; height:auto; z-index:1500; top:500px; display:none;">
+    <span class="fa fa-close" style="font-size:20px; float:right; margin-top:5px;" onclick="javascript:document.getElementById('pictureBox').style.display='none';"></span>
+    <div style="width:100%; display:inline-block;">
+        <div>
+            <div style="font-size:18px; font-weight:600; color: black; text-align:center; width:100%; font-family:verdana;" id="title">Load Picture For Advertisement1</div><br>
+            <form action="/submitadvertisement" method="post" enctype="multipart/form-data" style="width:100%;" id="form">
+                {% csrf_token %}
+                <div class="form-group" style="margin-bottom:20px;">
+    				<center>
+                		<img src="/static/qhome/images/appicon.jpg" style="width:50%; height:auto; margin-top:10px; margin-bottom:10px; border-radius: 5%;" id="picture">
+                	    <div id="views" style="margin:15px;"></div>
+                        <input type="hidden" id="x" name="x" />
+                        <input type="hidden" id="y" name="y" />
+                        <input type="hidden" id="w" name="w" />
+                        <input type="hidden" id="h" name="h" />
+                        <button id="cropbutton" type="button" style="background:transparent; color:green; font-size:16px; border:0px; margin-bottom:8px; display:none;">
+                            <i class="fa fa-crop" style="color:green; font-size:16px; margin-right:10px;"></i>Crop
+                        </button>
+                	</center>
+                	<center>
+                        <label id="btn1" class="cameraButton" style="margin-bottom:25px; color:green; border:0; background:transparent;">
+                            <i class="fa fa-camera-retro" style="font-size:16px; color:green; margin-right:8px;"></i>Load Picture
+                            <input type="file" name="photo1" value="http://lorempixel.com/100/100/people/9" id="file1" accept="image/*"/>
+                            <input type="hidden" name="bphoto" id="bphoto">
+                        </label>
+                        <label id="btn2" class="cameraButton" style="margin-bottom:25px; color:green; border:0; background:transparent;">
+                            <i class="fa fa-camera-retro" style="font-size:16px; color:green; margin-right:8px;"></i>Load Picture
+                            <input type="file" name="photo2" value="http://lorempixel.com/100/100/people/9" id="file2" accept="image/*"/>
+                            <input type="hidden" name="bphoto" id="bphoto">
+                        </label>
+                        <label id="btn3" class="cameraButton" style="margin-bottom:25px; color:green; border:0; background:transparent;">
+                            <i class="fa fa-camera-retro" style="font-size:16px; color:green; margin-right:8px;"></i>Load Picture
+                            <input type="file" name="photo3" value="http://lorempixel.com/100/100/people/9" id="file3" accept="image/*"/>
+                            <input type="hidden" name="bphoto" id="bphoto">
+                        </label>
+                    </center>
+                </div>
+
+                <center>
+                    <button type="submit" formaction="javascript:submitpicture();"
+                        style="width:60%; margin-bottom:20px; padding:12px; background:transparent; color:green; font-size:20px; display:none;" id="ok">OK</button>
+                </center>
+
+                <input type="hidden" id="x1" name="x1" />
+                <input type="hidden" id="y1" name="y1" />
+                <input type="hidden" id="w1" name="w1" />
+                <input type="hidden" id="h1" name="h1" />
+                <input type="hidden" id="x2" name="x2" />
+                <input type="hidden" id="y2" name="y2" />
+                <input type="hidden" id="w2" name="w2" />
+                <input type="hidden" id="h2" name="h2" />
+                <input type="hidden" id="x3" name="x3" />
+                <input type="hidden" id="y3" name="y3" />
+                <input type="hidden" id="w3" name="w3" />
+                <input type="hidden" id="h3" name="h3" />
+
+                <input type="hidden" id="store1" name="store1" value="{% if ad.store1 %}{{ad.store1}}{% endif %}"/>
+                <input type="hidden" id="store2" name="store2" value="{% if ad.store2 %}{{ad.store2}}{% endif %}"/>
+                <input type="hidden" id="store3" name="store3" value="{% if ad.store3 %}{{ad.store3}}{% endif %}"/>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="backgroundOverlay"></div>
+
+<script>
+    var option;
+    function progressBar(){
+
+    }
+</script>
+
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+<button onclick="topFunction()" id="myBtn" title="Top">Top</button>
+
+<script>
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>
+
+<script>
+
+var crop_max_width = 600;
+var crop_max_height = 600;
+var jcrop_api;
+var canvas;
+var context;
+var image;
+
+var prefsize;
+
+$("#file1").change(function() {
+  loadImage(this);
+});
+
+$("#file2").change(function() {
+  loadImage(this);
+});
+
+$("#file3").change(function() {
+  loadImage(this);
+});
+
+function loadImage(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    canvas = null;
+    reader.onload = function(e) {
+      image = new Image();
+      image.onload = validateImage;
+      image.src = e.target.result;
+    }
+    reader.readAsDataURL(input.files[0]);
+    document.getElementById("cropbutton").style.display = "block";
+    document.getElementById("ok").style.display = "block";
+    document.getElementById("picture").style.display = "none";
+  }
+}
+
+function dataURLtoBlob(dataURL) {
+  var BASE64_MARKER = ';base64,';
+  if (dataURL.indexOf(BASE64_MARKER) == -1) {
+    var parts = dataURL.split(',');
+    var contentType = parts[0].split(':')[1];
+    var raw = decodeURIComponent(parts[1]);
+
+    return new Blob([raw], {
+      type: contentType
+    });
+  }
+  var parts = dataURL.split(BASE64_MARKER);
+  var contentType = parts[0].split(':')[1];
+  var raw = window.atob(parts[1]);
+  var rawLength = raw.length;
+  var uInt8Array = new Uint8Array(rawLength);
+  for (var i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+
+  return new Blob([uInt8Array], {
+    type: contentType
+  });
+}
+
+function validateImage() {
+  if (canvas != null) {
+    image = new Image();
+    image.onload = restartJcrop;
+    image.src = canvas.toDataURL('image/png');
+  } else restartJcrop();
+}
+
+function restartJcrop() {
+  if (jcrop_api != null) {
+    jcrop_api.destroy();
+  }
+  $("#views").empty();
+  $("#views").append("<canvas id=\"canvas\">");
+  canvas = $("#canvas")[0];
+  context = canvas.getContext("2d");
+  canvas.width = image.width;
+  canvas.height = image.height;
+  context.drawImage(image, 0, 0);
+  $("#canvas").Jcrop({
+    onSelect: selectcanvas,
+    onRelease: clearcanvas,
+    boxWidth: crop_max_width,
+    boxHeight: crop_max_height
+  }, function() {
+    jcrop_api = this;
+  });
+//  clearcanvas();
+}
+
+function clearcanvas() {
+  prefsize = {
+    x: 0,
+    y: 0,
+    w: canvas.width,
+    h: canvas.height,
+  };
+}
+
+function selectcanvas(coords) {
+  prefsize = {
+    x: Math.round(coords.x),
+    y: Math.round(coords.y),
+    w: Math.round(coords.w),
+    h: Math.round(coords.h)
+  };
+
+  $('#x').val(Math.round(coords.x));
+  $('#y').val(Math.round(coords.y));
+  $('#w').val(Math.round(coords.w));
+  $('#h').val(Math.round(coords.h));
+
+}
+
+function applyCrop() {
+  canvas.width = prefsize.w;
+  canvas.height = prefsize.h;
+  context.drawImage(image, prefsize.x, prefsize.y, prefsize.w, prefsize.h, 0, 0, canvas.width, canvas.height);
+  validateImage();
+}
+
+$("#cropbutton").click(function(e) {
+  applyCrop();
+});
+
+</script>
+
+<script>
+
+$(document).ready(function() {
+   $(document).ready(function() {
+        $('.table #date').each(function(i) {
+            this.innerHTML = getDate(parseInt(this.innerHTML));
+        });
+
+        $('.table .desc').each(function(i) {
+            const response = this.innerHTML
+            const decoded = response
+              .replace(/\\u(....)/g, (match, p1) => String.fromCharCode(parseInt(p1, 16)))
+              .replace(/\\(\d{3})/g, (match, p1) => String.fromCharCode(parseInt(p1,  8)))
+            this.innerHTML = decoded;
+        });
+   });
+});
+
+function getDate(ms){
+    var months = ['January', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var date = new Date(ms);
+    var seconds = date.getSeconds();
+    var minutes = date.getMinutes();
+    var hours = date.getHours();
+
+    var year = date.getFullYear();
+    var month = date.getMonth(); // beware: January = 0; February = 1, etc.
+    var day = date.getDate();
+
+    var dayStr = day;
+    if(day < 10) dayStr = '0' + day;
+
+    var hourStr = hours;
+    if(hours < 10) hourStr = '0' + hours;
+
+    var minStr = minutes;
+    if(minutes < 10) minStr = '0' + minutes;
+
+    var dateStr = months[month] + ' ' + dayStr + ', ' + year + ' ' + hourStr + ':' + minStr;
+    return dateStr;
+}
+
+</script>
+
+<script>
+
+    function showPictureBox(opt){
+        option = opt;
+        document.getElementById("btn1").style.display = "none";
+        document.getElementById("btn2").style.display = "none";
+        document.getElementById("btn3").style.display = "none";
+        document.getElementById("picture").src = "/static/qhome/images/icon.png";
+        document.getElementById("cropbutton").style.display = "none";
+        document.getElementById("ok").style.display = "none";
+        document.getElementById("picture").style.display = "block";
+        document.getElementById("views").innerHTML = "";
+
+        if(opt == 'ad1'){
+            document.getElementById("title").innerHTML = "ADA";
+            document.getElementById("btn1").style.display = "block";
+        }
+        else if(opt == 'ad2'){
+            document.getElementById("title").innerHTML = "ADB";
+            document.getElementById("btn2").style.display = "block";
+        }
+        else if(opt == 'ad3'){
+            document.getElementById("title").innerHTML = "ADC";
+            document.getElementById("btn3").style.display = "block";
+        }
+
+        document.getElementById("pictureBox").style.display = "block";
+    }
+
+    function submitpicture(){
+        document.getElementById("pictureBox").style.display = "none";
+        if(option == 'ad1'){
+            document.getElementById("picture1").src = image.src;
+            document.getElementById("picture1").style.display = "block";
+            document.getElementById("cameraBtn1").style.display = "block";
+            document.getElementById("x1").value = document.getElementById("x").value;
+            document.getElementById("y1").value = document.getElementById("y").value;
+            document.getElementById("w1").value = document.getElementById("w").value;
+            document.getElementById("h1").value = document.getElementById("h").value;
+        }
+        else if(option == 'ad2'){
+            document.getElementById("picture2").src = image.src;
+            document.getElementById("picture2").style.display = "block";
+            document.getElementById("cameraBtn2").style.display = "block";
+            document.getElementById("x2").value = document.getElementById("x").value;
+            document.getElementById("y2").value = document.getElementById("y").value;
+            document.getElementById("w2").value = document.getElementById("w").value;
+            document.getElementById("h2").value = document.getElementById("h").value;
+        }
+        else if(option == 'ad3'){
+            document.getElementById("picture3").src = image.src;
+            document.getElementById("picture3").style.display = "block";
+            document.getElementById("cameraBtn3").style.display = "block";
+            document.getElementById("x3").value = document.getElementById("x").value;
+            document.getElementById("y3").value = document.getElementById("y").value;
+            document.getElementById("w3").value = document.getElementById("w").value;
+            document.getElementById("h3").value = document.getElementById("h").value;
+        }
+    }
+
+    function openStoresBox(opt){
+        option = opt;
+        document.getElementById('storeListBox').style.display='block';
+        document.getElementById("storeListBox").setAttribute('class', 'slide-in');
+        document.getElementById('storeListBox').style.display='block';
+        document.getElementById('backgroundOverlay').style.display='block';
+    }
+
+    function closeStoresBox(){
+        document.getElementById('backgroundOverlay').style.display='none';
+        document.getElementById("storeListBox").setAttribute('class', 'slide-out');
+        setTimeout(function() {
+            document.getElementById('storeListBox').style.display='none';
+        }, 500);
+    }
+
+    function confirmStore(obj){
+        if(option == 'ad1'){
+            var selstorename = obj.querySelector("input");
+            document.getElementById('storeBox1').innerHTML = selstorename.value;
+            document.getElementById('store1').value = obj.id;
+        }else if(option == 'ad2'){
+            var selstorename = obj.querySelector("input");
+            document.getElementById('storeBox2').innerHTML = selstorename.value;
+            document.getElementById('store2').value = obj.id;
+        }else if(option == 'ad3'){
+            var selstorename = obj.querySelector("input");
+            document.getElementById('storeBox3').innerHTML = selstorename.value;
+            document.getElementById('store3').value = obj.id;
+        }
+
+        document.getElementById('backgroundOverlay').style.display='none';
+        document.getElementById("storeListBox").setAttribute('class', 'slide-out');
+        setTimeout(function() {
+            document.getElementById('storeListBox').style.display='none';
+        }, 500);
+
+    }
+
+    function submitadvertisement(){
+        document.getElementById("form").submit();
+    }
+
+    function post(path, params, method) {
+
+        method = method || "post"; // Set method to post by default if not specified.
+
+        // The rest of this code assumes you are not using a library.
+        // It can be made less wordy if you use one.
+        var form = document.createElement("form");
+        form.setAttribute("method", method);
+        form.setAttribute("action", path);
+
+        for(var key in params) {
+            if(params.hasOwnProperty(key)) {
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", params[key]);
+
+                form.appendChild(hiddenField);
+            }
+        }
+
+        var hiddenField1 = document.createElement("input");
+        hiddenField1.setAttribute("type", "hidden");
+        hiddenField1.setAttribute("name", 'csrfmiddlewaretoken');
+        hiddenField1.setAttribute("value", getCookie('csrftoken'));
+        form.appendChild(hiddenField1);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function getCookie(name) {
+        console.log('getCookie');
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                    }
+            }
+        }
+        console.log('cookie:' + cookieValue);
+        return cookieValue;
+    }
+
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,249 @@
+{% extends 'qhome/base_noti.html' %}
+{% block title %}You have message!{% endblock %}
+{% block body %}
+
+<br>
+<br>
+<br>
+    <meta charset="UTF-8">
+    <style>
+        html, body{
+            background: url("/static/qhome/images/darkbg.jpg") no-repeat center center fixed;
+            background-size:cover;
+        }
+        #edit {
+            border-radius: 5px;
+            max-width:500px;
+            width:auto;
+            height:auto;
+            margin-top: 3px;
+            margin-bottom: auto;
+            margin-left:auto;
+            margin-right:auto;
+            opacity:0.9;
+            overflow: hidden;
+        }
+        .contentform {
+            padding: 0px 5px 5px 5px;
+            float:middle;
+        }
+        .formcontent {
+            width:100%;
+            float:middle;
+            margin:auto;
+            <!--border-right: 1px dotted #CCC;-->
+            box-sizing: border-box;
+        }
+        #chat_log {
+            margin: 0;
+            width: 100%;
+            height: auto;
+            float: middle;
+            padding: 5px 5px 5px 5px;
+            color:black;
+            overflow-y:auto;
+        }
+        #chat_log::-webkit-scrollbar {
+            display: none;
+        }
+        #send-form{
+            width:100%;
+        }
+        div#list {
+            width: 100%;
+            height: auto;
+        }
+
+        div#list > div {
+            background:white;
+            background-size:cover;
+            border-radius:5px;
+        }
+
+        div#list > div > div {
+            width: auto;
+            height: auto;
+            padding: 15px;
+            margin-bottom: 5px;
+            color: black;
+            white-space: pre-wrap;      /* CSS3 */
+            white-space: -moz-pre-wrap; /* Firefox */
+            white-space: -pre-wrap;     /* Opera <7 */
+            white-space: -o-pre-wrap;   /* Opera 7 */
+            word-wrap: break-word;      /* IE */
+        }
+        div#list > div > img {
+            width: auto;
+            height: auto;
+            max-width:60px;
+            max-width:60px;
+            /*border-radius:50px;*/
+            padding:5px;
+            float:right;
+        }
+    </style>
+
+<script>
+	history.pushState(null, null, location.href);
+	window.onpopstate = function () {
+        history.go(1);
+    };
+</script>
+
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../lib/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<span style="font-size:20px; font-weight:800; color: yellow;
+	position:fixed; left:53%; float:middle;
+	transform:translate(-50%, -50%); width:300px; z-index:100; top:100px;">NOTIFICATIONS</span>
+
+<img src="/static/qhome/images/appicon.jpg" style="position:relative; width:60px; height:60px; border-radius:50%; z-index:100; left:3%; margin-top:20px;">
+
+<div id="edit">
+    <div class="contentform">
+        <div class="formcontent">
+            <div id="chat_log">
+                <div id="list"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD8sQq7bU0totrjzZw5FiK5lr8WQ2kjFmM",
+    authDomain: "qhome-43cdd.firebaseapp.com",
+    databaseURL: "https://qhome-43cdd.firebaseio.com",
+    storageBucket: "qhome-43cdd.appspot.com"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script>
+
+var ul = document.getElementById("list");
+
+var lii = document.createElement("div");
+lii.style.color = 'white';
+lii.style.fontSize = '16';
+lii.style.backgroundColor = 'transparent';
+lii.style.textAlign = 'center';
+lii.innerHTML = "No message ...";
+ul.append(lii);
+
+var ref = firebase.database().ref('toadmin');
+
+ref.on('child_added', function(snapshot) {
+
+  lii.style.display = 'none';
+
+  var key = snapshot.key;
+
+  if (key){
+
+        var ref2 = ref.child(key);
+
+        ref2.on('child_added', function(snapshot) {
+
+            var time = snapshot.child("date").val();
+            var fromid = snapshot.child("fromid").val();
+            var fromname = snapshot.child("fromname").val();
+            var msg = snapshot.child("msg").val();
+            var type = snapshot.child("type").val();
+            var id = snapshot.child("id").val();
+
+            var li = document.createElement("div");
+            li.style.color = 'black';
+            li.style.fontSize = '14';
+            li.style.maxWidth = "auto";
+            li.style.width = "auto";
+            li.innerHTML = "<label style='font-size:18px; font-weight:800; font-family:verdana;'>" + fromname + "</label>" + "<br>"
+                + "<div style='color:green; margin-bottom:10px;'><i class='fa fa-clock-o' style='font-size:18px; margin-right:10px;'></i><label style='font-size:14px;'>" + timeConverter(Number(time)) + "</label></div>" + msg;
+            li.style.textAlign = 'left';
+            var ul2 = document.createElement("div");
+            var img = document.createElement("img");
+            img.src = '/static/qhome/images/2428675.png';
+            ul2.appendChild(img);
+            ul2.append(li);
+            ul2.addEventListener('click', function (event) {
+                if(type == 'store'){
+                    ref2.child(snapshot.key).remove();
+                    window.location.href = "/stores?store_id=" + id;
+                }
+                else if(type == 'user'){
+                    ref2.child(snapshot.key).remove();
+                    window.location.href = "/users?user_id=" + id;
+                }
+            });
+
+            ul.insertBefore(ul2, ul.childNodes[0]);
+
+        });
+
+  }
+
+});
+
+
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var hourStr = "", minStr = "", secStr = "";
+  hourStr = String(hour); minStr = String(min); secStr = String(sec);
+  if(hour < 10) hourStr = "0" + hourStr;
+  if(min < 10) minStr = "0" + minStr;
+  if(sec < 10) secStr = "0" + secStr;
+  var time = date + ' ' + month + ' ' + year + ' ' + hourStr + ':' + minStr + ':' + secStr ;
+  return time;
+}
+
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
